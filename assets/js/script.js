@@ -33,7 +33,13 @@ function productsDataReceived(productData){
 }
 
 function getProductPrices(productPrices){
-    
+
+    console.log('The three products prices:');
+    productPrices.forEach(product => {
+        console.log(product.title);
+        console.log(product.price);
+        console.log(product.thumpnail);
+    });
 }
 
 getCatgoryData();
