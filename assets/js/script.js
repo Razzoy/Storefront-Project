@@ -32,13 +32,13 @@ function productsDataReceived(productData){
 
 }
 
-function getProductPrices(productPrices){
+function getProductPrices(productCards){
 
     console.log('The three products prices:');
-    productPrices.forEach(product => {
+    productCards.forEach(product => {
         console.log(product.title);
         console.log(product.price);
-        console.log(product.thumpnail);
+        // console.log(product.thumpnail);
     });
 }
 
