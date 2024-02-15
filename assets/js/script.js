@@ -1,4 +1,4 @@
-
+const myFeaturedElement = document.getElementById('featuredProducts');
 getProductsData();
 
 //Create function for receiving the database data.
@@ -23,24 +23,31 @@ function productsDataReceived(productData){
     let productList = [];
 
     //Push three randomly chosen products to the empty array out from the 30 available products.
-    productList.push(products[7], products[23], products[15]);
+    productList.push(products[Math.floor(Math.random()*products.length)], products[19], products[15]);
+
+    //Math.floor(Math.random()*products.length) chooses a single product at random from the 30 products available, every time the page loads.
 
     //console log the result.
     console.log(productList);
 
-    getProductPrices(productList);
+    createProductView(productList);
 
 }
 
-function getProductPrices(productCards){
+function createProductView(myCards){
 
-    console.log('The three products prices:');
-    productCards.forEach(product => {
-        console.log(product.title);
-        console.log(product.price);
-        // console.log(product.thumpnail);
+    myCards.forEach(product => {
+        
+        console.log(product);
+
+        let myHTML = `<figure onclick ="ProductCallback(${product.id})"><h2>${product.title}</h2> <img src="${product.thumbnail}"><h3>PRIS: ${product.price} rabat: ${product.discountPercentage}</h3></figure>`;
+
+        myFeaturedElement.innerHTML += myHTML;
     });
 }
+
+
+
 
 getCatgoryData();
 
