@@ -1,5 +1,5 @@
-
 //*GLOBALS*//
+
 const myFeaturedElement = document.getElementById('featuredProducts');
 const navElement = document.getElementById('navigation');
 
@@ -89,6 +89,24 @@ function navCallBack(myCategory) {
     }
 }
 
+function productCallBack(myId) {
+
+    let myClickedProduct = null
+
+    myProducts.forEach(product => {
+        if (product.id == myId) {
+            myClickedProduct = product;
+        }
+    });
+
+    if (myClickedProduct == null) {
+        alert('There is no product!')
+    } else {
+        clearApp();
+        buildProduct(myClickedProduct);
+    }
+}
+
 
 
 /*VIEW CODE--------------------------------------------------------------------------------------------*/
@@ -108,17 +126,38 @@ function createNavBar(myCategories) {
 
 function createProductView(myCards) {
 
-    clearApp()
+    clearApp();
 
     myCards.forEach(product => {
 
         // console.log(product);
 
-        let myHTML = `<figure onclick ="ProductCallback(${product.id})"><h2>${product.title}</h2> <img src="${product.thumbnail}"><h3>PRIS: ${product.price} rabat: ${product.discountPercentage}</h3></figure>`;
+        let myHTML = `<figure onclick ="productCallBack(${product.id})"><h2>${product.title}</h2> <img src="${product.thumbnail}"><h3>PRIS: ${product.price}€ rabat: ${product.discountPercentage}%</h3></figure>`;
 
         myFeaturedElement.innerHTML += myHTML;
     });
 }
+
+function buildProduct(product) {
+    let imageHTML = '';
+
+    // Gennemgå hvert billede i product.images arrayet
+    product.images.forEach((image, index) => {
+        // Tilføj en klasse til det første billede
+        let isFirstImage = index === 0 ? 'first-image' : '';
+        // Opret HTML-markup for billedet og tilføj den til imageHTML
+        imageHTML += `<img src="${image}" class="${isFirstImage}">`
+    })
+
+    let myHTML = `<figure class = "productDetails" onclick = "GetProductData()"> <h2>${product.title}</h2>${imageHTML} <h3>PRIS: ${product.price}€</h3> <p>${product.description}</p> </figure>`
+
+
+    myFeaturedElement.innerHTML = myHTML;
+
+    // Fjern display: grid fra #featuredProducts
+    
+}
+
 
 function clearApp() {
     myFeaturedElement.innerHTML = '';
